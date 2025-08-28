@@ -1,11 +1,16 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 
-app.use(express.json());
+// add custom token for timestamp
+morgan.token('timestamp', () => new Date().toISOString());
 
-app.use('/', (req, res) => {
-  res.send('Welcome to the Recipes API!');
+// plug morgan into Express as middleware
+app.use(morgan(':timestamp :method :url :status :res[content-length] - :response-time ms'));
+
+app.get('/', (req, res) => {
+  res.send('Recipes API is running!');
 });
 
 module.exports = app;
