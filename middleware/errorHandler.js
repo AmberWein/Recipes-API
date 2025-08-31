@@ -1,8 +1,15 @@
-const express = require('express');
-const router = express.Router();
+function errorHandler(err, req, res, next) {
+  console.error(err.stack);
 
-const recipeController = require('../controllers/recipeController');
+  const status = err.status || 500;
+  const message = err.message || "Something went wrong";
 
+  res.status(status).json({
+    error: {
+      message,
+      ...(process.env.NODE_ENV === "development" && { stack: err.stack })
+    }
+  });
+}
 
-router.get('/', recipeController.getAllRecipes);
-router.get('/:id', recipeController.getRecipeById);
+module.exports = errorHandler;
