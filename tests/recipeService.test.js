@@ -10,7 +10,7 @@ describe('Recipe Service', () => {
   test('should return a recipe by id', () => {
     const recipe = recipeService.getRecipeById('1');
     expect(recipe).toBeDefined();
-    expect(recipe.name).toBe('Spaghetti Carbonara');
+    expect(recipe.title).toBe('Spaghetti Carbonara');
   });
 
   test('should return undefined for non-existent recipe', () => {

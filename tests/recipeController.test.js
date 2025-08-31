@@ -15,19 +15,19 @@ describe('Recipe Controller', () => {
   });
 
   test('getAllRecipes should return recipes', () => {
-    recipeService.getRecipes.mockReturnValue([{ id: '1', name: 'Test Recipe' }]);
+    recipeService.getRecipes.mockReturnValue([{ id: '1', title: 'Test Recipe' }]);
 
     recipeController.getAllRecipes(req, res);
 
-    expect(res.json).toHaveBeenCalledWith([{ id: '1', name: 'Test Recipe' }]);
+    expect(res.json).toHaveBeenCalledWith([{ id: '1', title: 'Test Recipe' }]);
   });
 
   test('getRecipeById should return recipe if found', () => {
-    recipeService.getRecipeById.mockReturnValue({ id: '1', name: 'Test Recipe' });
+    recipeService.getRecipeById.mockReturnValue({ id: '1', title: 'Test Recipe' });
 
     recipeController.getRecipeById(req, res);
 
-    expect(res.json).toHaveBeenCalledWith({ id: '1', name: 'Test Recipe' });
+    expect(res.json).toHaveBeenCalledWith({ id: '1', title: 'Test Recipe' });
   });
 
   test('getRecipeById should return 404 if not found', () => {

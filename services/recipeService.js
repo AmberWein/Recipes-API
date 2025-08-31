@@ -1,9 +1,33 @@
 // handle data/business logic
 
+const { v4: uuidv4 } = require("uuid");
+
 // mock data
 let recipes = [
-  { id: '1', name: 'Spaghetti Carbonara', ingredients: ['pasta', 'egg', 'bacon'] },
-  { id: '2', name: 'Pancakes', ingredients: ['flour', 'milk', 'egg'] }
+  {
+    id: '1',
+    title: 'Spaghetti Carbonara',
+    description: 'Classic Italian pasta dish',
+    ingredients: ['pasta', 'egg', 'bacon'],
+    instructions: ['Boil pasta', 'Cook bacon', 'Mix together'],
+    cookingTime: 30,
+    servings: 2,
+    difficulty: 'easy',
+    rating: 4.5,
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: '2',
+    title: 'Pancakes',
+    description: 'Fluffy breakfast pancakes',
+    ingredients: ['flour', 'milk', 'egg'],
+    instructions: ['Mix ingredients', 'Cook on skillet'],
+    cookingTime: 15,
+    servings: 4,
+    difficulty: 'easy',
+    rating: 4.0,
+    createdAt: new Date().toISOString()
+  }
 ];
 
 exports.getRecipes = () => recipes;
@@ -11,7 +35,12 @@ exports.getRecipes = () => recipes;
 exports.getRecipeById = (id) => recipes.find(r => r.id === id);
 
 exports.createRecipe = (recipe) => {
-  const newRecipe = { id: String(Date.now()), ...recipe };
+  const newRecipe = {
+    id: uuidv4(),
+    createdAt: new Date().toISOString(),
+    rating: 0, // initial rating
+    ...recipe
+  };
   recipes.push(newRecipe);
   return newRecipe;
 };
