@@ -1,10 +1,12 @@
 const express = require('express');
+const validateRecipe = require('../middleware/validateRecipe');
+
 const router = express.Router();
 
 const recipeController = require('../controllers/recipeController');
 
 router.get('/', recipeController.getAllRecipes);
-router.post("/", recipeController.createRecipe);
+router.post("/", validateRecipe, recipeController.createRecipe);
 
 router.get("/stats/summary", recipeController.getRecipeStats);
 
