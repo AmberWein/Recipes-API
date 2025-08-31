@@ -2,9 +2,23 @@ const request = require('supertest');
 const express = require('express');
 const recipeRoutes = require('../routes/recipeRoutes');
 
+jest.mock('../services/recipeService');
+const recipeService = require('../services/recipeService');
+
 const app = express();
 app.use(express.json());
 app.use('/recipes', recipeRoutes);
+
+beforeEach(() => {
+  // reset mock implementations before each test
+  recipeService.getRecipes.mockReturnValue([
+    { id: '1', title: 'Test Recipe' }
+  ]);
+
+  recipeService.getRecipeById.mockImplementation((id) =>
+    id === '1' ? { id: '1', title: 'Test Recipe' } : undefined
+  );
+});
 
 describe('Recipe Routes', () => {
   test('GET /recipes should return all recipes', async () => {
